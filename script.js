@@ -1,7 +1,7 @@
 var barData = [];
 
-for (var i=0; i<50; i++) {
-  barData.push(Math.round(Math.random() * 30 + 5))
+for (var i=0; i<(Math.random()*100); i++) {
+  barData.push(Math.round(Math.random() * 30 + 5));
 }
 
 var height = 400,
@@ -16,7 +16,7 @@ var height = 400,
                .rangeBands([0, width]),
     colors = d3.scale.linear()
                .domain([0, barData.length])
-               .range(['#FFB832', '#C61C6F']);
+               .range(['#FFB832', 'maroon']);
 
 var tempColor;
 
@@ -54,6 +54,9 @@ var myChart = d3.select('#chart').append('svg')
       .style('fill', 'yellow');
   })
   .on('mouseout', function(d) {
+    toolTip.transition()
+           .style('opacity', 0);
+
     d3.select(this)
       .style('opacity', 1)
       .style('fill', tempColor);
