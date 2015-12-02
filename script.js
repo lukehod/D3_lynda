@@ -103,16 +103,34 @@ var vGuideScale = d3.scale.linear()
     .domain([0, d3.max(barData)])
     .range([height, 0]);
 
-/* create axis using special d3 method */
+/* create verticle axis using special d3 method */
 var vAxis = d3.svg.axis()
     .scale(vGuideScale)
     .orient('left')
     .ticks(10);
 
+/* verticle guide */
 var vGuide = d3.select('svg').append('g');
     vAxis(vGuide);
     vGuide.attr('transform', 'translate(35, 0)');
     vGuide.selectAll('path')
         .style({ fill: 'none', stroke: "#000" });
     vGuide.selectAll('line')
+        .style({ stroke: "#000" });
+
+/* create horizontal axis using special d3 method */
+var hAxis = d3.svg.axis()
+    .scale(xScale)
+    .orient('bottom')
+    .tickValues(xScale.domain().filter(function(d, i) {
+        return !(i % (barData.length/5));
+    }));
+
+/* horizontal guide */
+var hGuide = d3.select('svg').append('g');
+    hAxis(hGuide);
+    hGuide.attr('transform', 'translate(0, ' + (height-30) + ')');
+    hGuide.selectAll('path')
+        .style({ fill: 'none', stroke: "#000" });
+    hGuide.selectAll('line')
         .style({ stroke: "#000" });
